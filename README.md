@@ -1,19 +1,30 @@
-# Método del flujo gradiente — implementación numérica
+<div align="center">
 
-Código del **trabajo práctico** asociado al Trabajo de Fin de Grado
-**«Cálculo de variaciones y optimización»** (Juan Diego Barrado Daganzo,
-Doble Grado en Ingeniería Informática y Matemáticas, Universidad Complutense
-de Madrid; director: Aníbal Rodríguez Bernal).
+# 🌊 Método del Flujo Gradiente para Problemas Variacionales 1D
+**Implementación numérica del TFG «Cálculo de variaciones y optimización» (UCM)**
 
-Documento del TFG: <https://github.com/JuanDiegoBarrado/Bachelor-s-Thesis-in-Mathematics>
+[![Python](https://img.shields.io/badge/Python-3.11+-yellow.svg?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![NumPy](https://img.shields.io/badge/NumPy-2.4-013243.svg?style=flat-square&logo=numpy&logoColor=white)](https://numpy.org/)
+[![SciPy](https://img.shields.io/badge/SciPy-1.17-8CAAE6.svg?style=flat-square&logo=scipy&logoColor=white)](https://scipy.org/)
+[![Matplotlib](https://img.shields.io/badge/Matplotlib-3.10-11557c.svg?style=flat-square)](https://matplotlib.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
 
-Este repositorio contiene la implementación del **método del flujo gradiente**
-propuesto en la memoria y reproduce las **Figuras 3.1 y 3.2** de la Sección 3.2.2.
+📄 **Documento del TFG:** [JuanDiegoBarrado/Bachelor-s-Thesis-in-Mathematics](https://github.com/JuanDiegoBarrado/Bachelor-s-Thesis-in-Mathematics)
+
+</div>
 
 > [!NOTE]
 > Este `README.md` ha sido generado con ayuda de IA.
 
-## Dónde encaja en el TFG
+Este repositorio contiene la implementación del **método del flujo gradiente**
+propuesto en la memoria del TFG y reproduce las **Figuras 3.1 y 3.2** de la
+Sección 3.2.2. Resuelve numéricamente un problema de contorno de tipo
+**Sturm–Liouville** minimizando su funcional de energía y compara la solución
+obtenida con la solución exacta y con un solver de contorno (BVP) de referencia.
+
+---
+
+## 🎓 Dónde encaja en el TFG
 
 El TFG estudia, de forma autocontenida, el cálculo de variaciones como parte de
 la optimización matemática. Su Capítulo 3 analiza una familia concreta de
@@ -25,7 +36,9 @@ código es la implementación numérica** que ilustra el procedimiento, compara 
 solución obtenida con la solución exacta y produce las figuras que cierran el
 capítulo.
 
-## El problema
+---
+
+## 📐 El problema
 
 Se resuelven los *problemas de contorno variacionales* (PCLV) de la forma
 
@@ -51,7 +64,9 @@ $$
 J(x) = \frac{1}{2}\int_{t_0}^{T} \left( p(t) x'(t)^2 + q(t) x(t)^2 \right) \ dt - \int_{t_0}^{T} f(t) x(t) \ dt.
 $$
 
-## El método
+---
+
+## ⚙️ El método
 
 **1. Discretización de Galerkin.** Se aproxima la solución en un subespacio de
 dimensión finita $V_h \subset H_0^1(t_0, T)$ generado por la base polinómica
@@ -99,20 +114,21 @@ memoria), **para cualquier** $X_0$.
 $H^1$ (esta última recoge también el error en la derivada, acorde a la norma
 natural de $H_0^1$).
 
-### Sobre la convergencia (rigidez y condicionamiento)
+> [!TIP]
+> **Convergencia, rigidez y condicionamiento.** El sistema de EDOs es lineal,
+> $X'(t) = -A (X - X_\ast)$, con solución $X(t) = X_\ast + e^{-At}(X_0 - X_\ast)$.
+> La velocidad de convergencia la fija el menor autovalor de $A$: la base de
+> monomios convierte a $A$ en (esencialmente) una matriz de Gram tipo **Hilbert**,
+> mal condicionada, cuyo coeficiente de rigidez $\mathrm{cond}(A) = \lambda_{\max}/\lambda_{\min}$
+> crece exponencialmente con $n$. Por eso el sistema es **rígido** y se integra con
+> el método implícito **BDF** (A-estable), que no impone restricciones sobre el
+> paso. Esto explica que los casos regulares converjan muy bien con $n$ moderado,
+> mientras que el caso de capa límite (con transición brusca) tenga un error mucho
+> mayor que no mejora —e incluso empeora el condicionamiento— al aumentar $n$.
 
-El sistema de EDOs es lineal, $X'(t) = -A (X - X_\ast)$, con solución
-$X(t) = X_\ast + e^{-At}(X_0 - X_\ast)$. La velocidad de convergencia la fija el menor
-autovalor de $A$: la base de monomios convierte a $A$ en (esencialmente) una
-matriz de Gram tipo **Hilbert**, mal condicionada, cuyo coeficiente de rigidez
-$\mathrm{cond}(A) = \lambda_{\max}/\lambda_{\min}$ crece exponencialmente
-con $n$. Por eso el sistema es **rígido** y se integra con el método implícito
-**BDF** (A-estable), que no impone restricciones sobre el paso. Esto explica que
-los casos regulares converjan muy bien con $n$ moderado, mientras que el caso de
-capa límite (con transición brusca) tenga un error mucho mayor que no mejora —e
-incluso empeora el condicionamiento— al aumentar $n$.
+---
 
-## Estructura del proyecto
+## 📂 Estructura del proyecto
 
 | Fichero | Contenido |
 |---|---|
@@ -121,7 +137,9 @@ incluso empeora el condicionamiento— al aumentar $n$.
 | `data/*.json` | Un fichero por caso de prueba (ver más abajo). |
 | `requirements.txt` | Dependencias directas (numpy, scipy, matplotlib). |
 
-## Instalación
+---
+
+## 🚀 Instalación
 
 Requiere **Python ≥ 3.11**.
 
@@ -135,7 +153,9 @@ source .venv/bin/activate
 pip install -r requirements.txt
 ```
 
-## Uso
+---
+
+## ▶️ Uso
 
 ```bash
 python flowGradient.py [--case CASO] [-n N] [--t0 T0] [-T T] [--time-limit TMAX]
@@ -163,7 +183,9 @@ de referencia) y guarda una figura **`flow_gradient.png`** con dos paneles: la
 solución del método frente a la exacta, y la densidad del error $H^1$ a lo largo
 de $t$ —es el formato de las Figuras 3.1 y 3.2 de la memoria.
 
-## Casos de prueba (`data/`)
+---
+
+## 🧪 Casos de prueba (`data/`)
 
 Cada caso vive en `data/<nombre>.json` y se selecciona con `--case <nombre>` (el
 nombre del fichero sin la extensión). Los casos `sinh`, `wave` y `layer`
@@ -177,7 +199,7 @@ reproducen las figuras del TFG:
 | `wave` | oscilante, $-x'' = (2\pi/(T-t_0))^2\sin(\cdots)$ | $\sin\!\big(2\pi(t-t_0)/(T-t_0)\big)$. | Figura 3.1(b) |
 | `layer` | capa límite, $-\varepsilon x'' + x = 1$, $\varepsilon=0.01$ | meseta plana que cae en los bordes. | Figura 3.2 |
 
-### Formato de cada caso
+### 🧱 Formato de cada caso
 
 ```json
 {
@@ -202,5 +224,18 @@ reproducen las figuras del TFG:
   `dexact` es su derivada (se usa para el error en norma $H^1$).
 - `labels` da la versión legible de $p$, $q$ y $f$ para los títulos de la figura.
 
-**Añadir un caso nuevo** consiste únicamente en dejar un `.json` en `data/`; el
-script lo detecta automáticamente y lo ofrece en `--case`, sin tocar el código.
+> [!TIP]
+> **Añadir un caso nuevo** consiste únicamente en dejar un `.json` en `data/`; el
+> script lo detecta automáticamente y lo ofrece en `--case`, sin tocar el código.
+
+---
+
+## 📜 Licencia
+
+Distribuido bajo la licencia **MIT**. Consulta el fichero [`LICENSE`](LICENSE)
+para los detalles.
+
+<br>
+<div align="center">
+  <i>Trabajo de Fin de Grado en el Doble Grado en Ingeniería Informática y Matemáticas (UCM)<br>Autor: Juan Diego Barrado Daganzo · Director: Aníbal Rodríguez Bernal</i>
+</div>
