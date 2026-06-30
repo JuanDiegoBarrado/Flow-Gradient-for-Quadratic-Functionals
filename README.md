@@ -65,7 +65,7 @@ por construcción). Escribiendo $x \approx \sum_i X_i\,\varphi_i$, el funcional
 restringido a $V_h$ es la forma cuadrática
 
 $$
-J|_{V_h}(X) = \frac{1}{2} X^{\mathsf T} A X - b^{\mathsf T} X,
+J\vert_{V_h}(X) = \frac{1}{2} X^{\mathsf T} A X - b^{\mathsf T} X,
 $$
 
 con
@@ -80,16 +80,16 @@ Las integrales se calculan por cuadratura (`scipy.integrate.quad`); $A$ es
 simétrica y definida positiva.
 
 **2. Flujo gradiente.** En lugar de resolver el sistema lineal
-$\nabla J|_{V_h}(X) = AX - b = 0$ directamente (como harían los métodos de
+$\nabla J\vert_{V_h}(X) = AX - b = 0$ directamente (como harían los métodos de
 elementos finitos) o de resolver el problema de contorno, se hace **evolucionar
 una función inicial en la dirección de máximo descenso** del funcional,
 integrando el sistema de EDOs
 
 $$
-\frac{dX}{dt} = -\nabla J|_{V_h}(X) = -(A X - b), \qquad X(0) = X_0.
+\frac{dX}{dt} = -\nabla J\vert_{V_h}(X) = -(A X - b), \qquad X(0) = X_0.
 $$
 
-Como $J|_{V_h}$ es coercivo y tiene un único punto crítico, la solución converge
+Como $J\vert_{V_h}$ es coercivo y tiene un único punto crítico, la solución converge
 al minimizador $X_\ast = A^{-1}b$ cuando $t \to \infty$ (Teorema 3.23 de la
 memoria), **para cualquier** $X_0$.
 
