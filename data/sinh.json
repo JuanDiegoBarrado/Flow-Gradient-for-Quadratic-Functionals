@@ -1,0 +1,11 @@
+{
+  "name": "sinh",
+  "description": "Coeficientes constantes, solucion no polinomica: -x'' + x = t. x(t) = t + A cosh t + B sinh t, con A, B fijados por x(t0)=x(T)=0.",
+  "labels": {"p": "1", "q": "1", "f": "t"},
+  "p": "1.0 + 0*t",
+  "q": "1.0 + 0*t",
+  "f": "t",
+  "dp": "0.0 + 0*t",
+  "exact": "t + ((T*np.sinh(t0) - t0*np.sinh(T)) * np.cosh(t) + (t0*np.cosh(T) - T*np.cosh(t0)) * np.sinh(t)) / np.sinh(T - t0)",
+  "dexact": "1 + ((T*np.sinh(t0) - t0*np.sinh(T)) * np.sinh(t) + (t0*np.cosh(T) - T*np.cosh(t0)) * np.cosh(t)) / np.sinh(T - t0)"
+}

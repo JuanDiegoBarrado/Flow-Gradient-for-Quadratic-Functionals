@@ -1,0 +1,11 @@
+{
+  "name": "variable",
+  "description": "Coeficiente variable p(t)=1+t^2, solucion x(t)=sin(k(t-t0)), con k = pi/(T-t0) (un lobulo, se anula en t0 y en T).",
+  "labels": {"p": "1 + t²", "q": "1", "f": "(k²(1+t²)+1)·sin(k(t-t₀)) − 2kt·cos(k(t-t₀)), k=π/(T-t₀)"},
+  "p": "1.0 + t**2",
+  "q": "1.0 + 0*t",
+  "f": "((np.pi/(T-t0))**2 * (1 + t**2) + 1) * np.sin((np.pi/(T-t0))*(t-t0)) - 2*(np.pi/(T-t0))*t*np.cos((np.pi/(T-t0))*(t-t0))",
+  "dp": "2*t",
+  "exact": "np.sin((np.pi/(T-t0))*(t-t0))",
+  "dexact": "(np.pi/(T-t0)) * np.cos((np.pi/(T-t0))*(t-t0))"
+}

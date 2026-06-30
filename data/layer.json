@@ -1,0 +1,11 @@
+{
+  "name": "layer",
+  "description": "p pequeña -> forma de MESETA (plana dentro, cae en bordes). -eps x'' + x = 1, eps = 0.01. Solucion simetrica respecto a (t0+T)/2, se anula en t0 y en T.",
+  "labels": {"p": "0.01", "q": "1", "f": "1"},
+  "p": "0.01 + 0*t",
+  "q": "1.0 + 0*t",
+  "f": "1.0 + 0*t",
+  "dp": "0.0 + 0*t",
+  "exact": "1 - np.cosh((t - (t0+T)/2)/0.1) / np.cosh(((T-t0)/2)/0.1)",
+  "dexact": "-(1/0.1) * np.sinh((t - (t0+T)/2)/0.1) / np.cosh(((T-t0)/2)/0.1)"
+}

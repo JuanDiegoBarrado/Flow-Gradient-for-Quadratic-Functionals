@@ -1,0 +1,11 @@
+{
+  "name": "wave",
+  "description": "Oscilante: x(t)=sin(w(t-t0)), w = 2*pi/(T-t0) -> ONDA (lobulo +, lobulo -), se anula en t0 y en T.",
+  "labels": {"p": "1", "q": "0", "f": "(2π/(T-t₀))²·sin(2π(t-t₀)/(T-t₀))"},
+  "p": "1.0 + 0*t",
+  "q": "0.0 + 0*t",
+  "f": "(2*np.pi/(T-t0))**2 * np.sin((2*np.pi/(T-t0))*(t-t0))",
+  "dp": "0.0 + 0*t",
+  "exact": "np.sin((2*np.pi/(T-t0))*(t-t0))",
+  "dexact": "(2*np.pi/(T-t0)) * np.cos((2*np.pi/(T-t0))*(t-t0))"
+}

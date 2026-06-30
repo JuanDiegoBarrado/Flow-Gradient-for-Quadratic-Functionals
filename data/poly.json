@@ -1,0 +1,11 @@
+{
+  "name": "poly",
+  "description": "Polinomico: -x'' = 1  ->  x(t) = (t-t0)(T-t)/2 (es -phi_0/2, ESTA en la base). El error seria ~1e-14 resolviendo X*=A^-1 b directamente; con el flujo gradiente queda limitado por TIME_LIMIT (modos lentos).",
+  "labels": {"p": "1", "q": "0", "f": "1"},
+  "p": "1.0 + 0*t",
+  "q": "0.0 + 0*t",
+  "f": "1.0 + 0*t",
+  "dp": "0.0 + 0*t",
+  "exact": "(t - t0) * (T - t) / 2",
+  "dexact": "(t0 + T - 2*t) / 2"
+}
