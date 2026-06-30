@@ -31,7 +31,7 @@ Se resuelven los *problemas de contorno variacionales* (PCLV) de la forma
 
 $$
 \begin{cases}
--\dfrac{d}{dt}\!\left(p(t)\,\dfrac{d}{dt}x(t)\right) + q(t)\,x(t) = f(t), & t \in [t_0, T],\\
+-\dfrac{d}{dt} \left(p(t) \dfrac{d}{dt} x(t) \right) + q(t) x(t) = f(t), & t \in [t_0, T]\\
 x(t_0) = 0, \quad x(T) = 0,
 \end{cases}
 $$
@@ -39,13 +39,17 @@ $$
 con $p \ge p_0 > 0$ y $q \ge 0$ (coeficientes que pueden ser continuos a trozos).
 En **formulación débil**, se busca $x \in H_0^1(t_0, T)$ tal que
 
-$$\int_{t_0}^{T} p\,x'\varphi' \, dt + \int_{t_0}^{T} q\,x\varphi \, dt = \int_{t_0}^{T} f\varphi \, dt \qquad \forall\, \varphi \in H_0^1(t_0, T).$$
+$$
+\int_{t_0}^{T} p(t) x'(t)\varphi'(t) \ dt + \int_{t_0}^{T} q(t) x(t) \varphi(t) \ dt = \int_{t_0}^{T} f(t)\varphi(t) \ dt \qquad \forall \varphi \in H_0^1(t_0, T).
+$$
 
 El Teorema de Lax-Milgram garantiza existencia y unicidad de la solución débil, y
 (al ser la forma bilineal simétrica) esa solución coincide con el **único
 minimizador global** del funcional de energía
 
-$$J(x) = \frac{1}{2}\int_{t_0}^{T}\!\left(p\,(x')^2 + q\,x^2\right) dt - \int_{t_0}^{T} f\,x \, dt.$$
+$$
+J(x) = \frac{1}{2}\int_{t_0}^{T} \left( p(t) x'(t)^2 + q(t) x(t)^2 \right) \ dt - \int_{t_0}^{T} f(t) x(t) \ dt.
+$$
 
 ## El método
 
@@ -53,7 +57,7 @@ $$J(x) = \frac{1}{2}\int_{t_0}^{T}\!\left(p\,(x')^2 + q\,x^2\right) dt - \int_{t
 dimensión finita $V_h \subset H_0^1(t_0, T)$ generado por la base polinómica
 
 $$
-\varphi_i(t) = (t - t_0)(t - T)\,t^{\,i}, \qquad i = 0, \dots, n,
+\varphi_i(t) = (t - t_0)(t - T) t^{i}, \qquad i = 0, \dots, n,
 $$
 
 cuyos elementos se anulan en $t_0$ y en $T$ (cumplen las condiciones de contorno
@@ -61,15 +65,15 @@ por construcción). Escribiendo $x \approx \sum_i X_i\,\varphi_i$, el funcional
 restringido a $V_h$ es la forma cuadrática
 
 $$
-J|_{V_h}(X) = \frac{1}{2}\,X^{\mathsf T} A X - b^{\mathsf T} X,
+J|_{V_h}(X) = \frac{1}{2} X^{\mathsf T} A X - b^{\mathsf T} X,
 $$
 
 con
 
 $$
-A_{ij} = \int_{t_0}^{T}\!\left(p\,\varphi_i'\varphi_j' + q\,\varphi_i\varphi_j\right) dt,
+A_{ij} = \int_{t_0}^{T} \left(p(t) \varphi_i(t) \varphi_j(t) + q(t) \varphi_i(t) \varphi_j(t) \right) \ dt,
 \qquad
-b_i = \int_{t_0}^{T} f\,\varphi_i \, dt.
+b_i = \int_{t_0}^{T} f(t) \varphi_i(t) \ dt.
 $$
 
 Las integrales se calculan por cuadratura (`scipy.integrate.quad`); $A$ es
@@ -97,7 +101,7 @@ natural de $H_0^1$).
 
 ### Sobre la convergencia (rigidez y condicionamiento)
 
-El sistema de EDOs es lineal, $X'(t) = -A\,(X - X_*)$, con solución
+El sistema de EDOs es lineal, $X'(t) = -A (X - X_*)$, con solución
 $X(t) = X_* + e^{-At}(X_0 - X_*)$. La velocidad de convergencia la fija el menor
 autovalor de $A$: la base de monomios convierte a $A$ en (esencialmente) una
 matriz de Gram tipo **Hilbert**, mal condicionada, cuyo coeficiente de rigidez
