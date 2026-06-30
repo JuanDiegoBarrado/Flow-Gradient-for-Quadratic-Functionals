@@ -90,7 +90,7 @@ $$
 $$
 
 Como $J|_{V_h}$ es coercivo y tiene un único punto crítico, la solución converge
-al minimizador $X_* = A^{-1}b$ cuando $t \to \infty$ (Teorema 3.23 de la
+al minimizador $X_\ast = A^{-1}b$ cuando $t \to \infty$ (Teorema 3.23 de la
 memoria), **para cualquier** $X_0$.
 
 **3. Referencia y error.** Se resuelve también el problema de contorno con
@@ -101,8 +101,8 @@ natural de $H_0^1$).
 
 ### Sobre la convergencia (rigidez y condicionamiento)
 
-El sistema de EDOs es lineal, $X'(t) = -A (X - X_*)$, con solución
-$X(t) = X_* + e^{-At}(X_0 - X_*)$. La velocidad de convergencia la fija el menor
+El sistema de EDOs es lineal, $X'(t) = -A (X - X_\ast)$, con solución
+$X(t) = X_\ast + e^{-At}(X_0 - X_\ast)$. La velocidad de convergencia la fija el menor
 autovalor de $A$: la base de monomios convierte a $A$ en (esencialmente) una
 matriz de Gram tipo **Hilbert**, mal condicionada, cuyo coeficiente de rigidez
 $\mathrm{cond}(A) = \lambda_{\max}/\lambda_{\min}$ crece exponencialmente
