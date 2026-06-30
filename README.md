@@ -29,7 +29,12 @@ capítulo.
 
 Se resuelven los *problemas de contorno variacionales* (PCLV) de la forma
 
-$$\begin{cases} -\dfrac{d}{dt}\!\left(p(t)\,\dfrac{d}{dt}x(t)\right) + q(t)\,x(t) = f(t), & t \in [t_0, T],\\[4pt] x(t_0) = 0, \quad x(T) = 0, \end{cases}$$
+$$
+\begin{cases}
+-\dfrac{d}{dt}\!\left(p(t)\,\dfrac{d}{dt}x(t)\right) + q(t)\,x(t) = f(t), & t \in [t_0, T],\\
+x(t_0) = 0, \quad x(T) = 0,
+\end{cases}
+$$
 
 con $p \ge p_0 > 0$ y $q \ge 0$ (coeficientes que pueden ser continuos a trozos).
 En **formulación débil**, se busca $x \in H_0^1(t_0, T)$ tal que
@@ -44,36 +49,51 @@ $$J(x) = \frac{1}{2}\int_{t_0}^{T}\!\left(p\,(x')^2 + q\,x^2\right) dt - \int_{t
 
 ## El método
 
-1. **Discretización de Galerkin.** Se aproxima la solución en un subespacio de
-   dimensión finita $V_h \subset H_0^1(t_0, T)$ generado por la base polinómica
+**1. Discretización de Galerkin.** Se aproxima la solución en un subespacio de
+dimensión finita $V_h \subset H_0^1(t_0, T)$ generado por la base polinómica
 
-   $$\varphi_i(t) = (t - t_0)(t - T)\,t^{\,i}, \qquad i = 0, \dots, n,$$
+$$
+\varphi_i(t) = (t - t_0)(t - T)\,t^{\,i}, \qquad i = 0, \dots, n,
+$$
 
-   cuyos elementos se anulan en $t_0$ y en $T$ (cumplen las condiciones de
-   contorno por construcción). Escribiendo $x \approx \sum_i X_i\,\varphi_i$, el
-   funcional restringido a $V_h$ es la forma cuadrática
+cuyos elementos se anulan en $t_0$ y en $T$ (cumplen las condiciones de contorno
+por construcción). Escribiendo $x \approx \sum_i X_i\,\varphi_i$, el funcional
+restringido a $V_h$ es la forma cuadrática
 
-   $$J|_{V_h}(X) = \tfrac{1}{2}\,X^{\mathsf T} A X - b^{\mathsf T} X, \qquad A_{ij} = \int_{t_0}^{T}\!\left(p\,\varphi_i'\varphi_j' + q\,\varphi_i\varphi_j\right) dt, \quad b_i = \int_{t_0}^{T} f\,\varphi_i \, dt.$$
+$$
+J|_{V_h}(X) = \frac{1}{2}\,X^{\mathsf T} A X - b^{\mathsf T} X,
+$$
 
-   Las integrales se calculan por cuadratura (`scipy.integrate.quad`); $A$ es
-   simétrica y definida positiva.
+con
 
-2. **Flujo gradiente.** En lugar de resolver el sistema lineal $\nabla J|_{V_h}(X) = AX - b = 0$
-   directamente (como harían los métodos de elementos finitos) o de resolver el
-   problema de contorno, se hace **evolucionar una función inicial en la
-   dirección de máximo descenso** del funcional, integrando el sistema de EDOs
+$$
+A_{ij} = \int_{t_0}^{T}\!\left(p\,\varphi_i'\varphi_j' + q\,\varphi_i\varphi_j\right) dt,
+\qquad
+b_i = \int_{t_0}^{T} f\,\varphi_i \, dt.
+$$
 
-   $$\frac{dX}{dt} = -\nabla J|_{V_h}(X) = -(A X - b), \qquad X(0) = X_0.$$
+Las integrales se calculan por cuadratura (`scipy.integrate.quad`); $A$ es
+simétrica y definida positiva.
 
-   Como $J|_{V_h}$ es coercivo y tiene un único punto crítico, la solución
-   converge al minimizador $X_* = A^{-1}b$ cuando $t \to \infty$ (Teorema 3.23
-   de la memoria), **para cualquier** $X_0$.
+**2. Flujo gradiente.** En lugar de resolver el sistema lineal
+$\nabla J|_{V_h}(X) = AX - b = 0$ directamente (como harían los métodos de
+elementos finitos) o de resolver el problema de contorno, se hace **evolucionar
+una función inicial en la dirección de máximo descenso** del funcional,
+integrando el sistema de EDOs
 
-3. **Referencia y error.** Se resuelve también el problema de contorno con
-   `scipy.integrate.solve_bvp` y se compara la solución del flujo gradiente con
-   la **solución exacta** conocida del caso, midiendo el error en las normas
-   $L^2$ y $H^1$ (esta última recoge también el error en la derivada, acorde a la
-   norma natural de $H_0^1$).
+$$
+\frac{dX}{dt} = -\nabla J|_{V_h}(X) = -(A X - b), \qquad X(0) = X_0.
+$$
+
+Como $J|_{V_h}$ es coercivo y tiene un único punto crítico, la solución converge
+al minimizador $X_* = A^{-1}b$ cuando $t \to \infty$ (Teorema 3.23 de la
+memoria), **para cualquier** $X_0$.
+
+**3. Referencia y error.** Se resuelve también el problema de contorno con
+`scipy.integrate.solve_bvp` y se compara la solución del flujo gradiente con la
+**solución exacta** conocida del caso, midiendo el error en las normas $L^2$ y
+$H^1$ (esta última recoge también el error en la derivada, acorde a la norma
+natural de $H_0^1$).
 
 ### Sobre la convergencia (rigidez y condicionamiento)
 
@@ -81,7 +101,7 @@ El sistema de EDOs es lineal, $X'(t) = -A\,(X - X_*)$, con solución
 $X(t) = X_* + e^{-At}(X_0 - X_*)$. La velocidad de convergencia la fija el menor
 autovalor de $A$: la base de monomios convierte a $A$ en (esencialmente) una
 matriz de Gram tipo **Hilbert**, mal condicionada, cuyo coeficiente de rigidez
-$\operatorname{cond}(A) = \lambda_{\max}/\lambda_{\min}$ crece exponencialmente
+$\mathrm{cond}(A) = \lambda_{\max}/\lambda_{\min}$ crece exponencialmente
 con $n$. Por eso el sistema es **rígido** y se integra con el método implícito
 **BDF** (A-estable), que no impone restricciones sobre el paso. Esto explica que
 los casos regulares converjan muy bien con $n$ moderado, mientras que el caso de
