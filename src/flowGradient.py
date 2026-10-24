@@ -12,8 +12,9 @@ import matplotlib.pyplot as plt
 # --- RUTAS Y PARAMETROS ---
 # =====================================================================
 
-ROOT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA_DIR = os.path.join(ROOT_DIR, "data")
+FIGURES_DIR = os.path.join(ROOT_DIR, "figures")
 
 # Valores por defecto (se pueden sobrescribir por argumentos de línea de comandos).
 DEFAULT_N = 8
@@ -188,7 +189,8 @@ ax2.legend()
 ax2.grid(True)
 
 plt.tight_layout()
-out_path = os.path.join(ROOT_DIR, "flow_gradient.png")
+os.makedirs(FIGURES_DIR, exist_ok=True)
+out_path = os.path.join(FIGURES_DIR, "flow_gradient.png")
 plt.savefig(out_path, dpi=150)
 
 print_report(CASE, r)

@@ -11,8 +11,6 @@
 [![Código: MIT](https://img.shields.io/badge/Código-MIT-green.svg?style=flat-square)](LICENSE)
 [![Memoria: CC BY-NC-ND 4.0](https://img.shields.io/badge/Memoria-CC%20BY--NC--ND%204.0-lightgrey.svg?style=flat-square)](docs/LICENSE)
 
-📝 **Repositorio del documento del TFG:** [JuanDiegoBarrado/Bachelor-s-Thesis-in-Mathematics](https://github.com/JuanDiegoBarrado/Bachelor-s-Thesis-in-Mathematics)
-
 </div>
 
 > [!NOTE]
@@ -183,11 +181,11 @@ natural de $H_0^1$).
 
 | Fichero | Contenido |
 |---|---|
-| `flowGradient.py` | Script principal: CLI, ensamblado del problema, integración del flujo, comparación y figura. |
-| `variationalCalculus.py` | Funciones de apoyo: ensamblado de $A$ (`compute_A`) y $b$ (`compute_B`), gradiente $\nabla J$ (`Delta_J`) y funcional $J$ (`J`). |
+| `src/flowGradient.py` | Script principal: CLI, ensamblado del problema, integración del flujo, comparación y figura. |
+| `src/variationalCalculus.py` | Funciones de apoyo: ensamblado de $A$ (`compute_A`) y $b$ (`compute_B`), gradiente $\nabla J$ (`Delta_J`) y funcional $J$ (`J`). |
 | `data/*.json` | Un fichero por caso de prueba (ver más abajo). |
 | `requirements.txt` | Dependencias directas (numpy, scipy, matplotlib). |
-| `flow_gradient.png` | Figura de ejemplo; cada ejecución la sobrescribe. |
+| `figures/flow_gradient.png` | Figura de ejemplo; cada ejecución la sobrescribe. |
 | `docs/memoria_TFG.pdf` | Memoria del TFG. |
 | `docs/LICENSE` | Licencia de la memoria (CC BY-NC-ND 4.0). |
 
@@ -212,7 +210,7 @@ pip install -r requirements.txt
 ## ▶️ Uso
 
 ```bash
-python flowGradient.py [--case CASO] [-n N] [--t0 T0] [-T T] [--time-limit TMAX]
+python src/flowGradient.py [--case CASO] [-n N] [--t0 T0] [-T T] [--time-limit TMAX]
 ```
 
 | Argumento | Descripción | Por defecto |
@@ -226,14 +224,14 @@ python flowGradient.py [--case CASO] [-n N] [--t0 T0] [-T T] [--time-limit TMAX]
 Ejemplos:
 
 ```bash
-python flowGradient.py                          # caso por defecto
-python flowGradient.py --case layer -n 12       # capa límite con 13 funciones base
-python flowGradient.py --case wave --t0 0 -T 6  # onda en [0, 6]
+python src/flowGradient.py                          # caso por defecto
+python src/flowGradient.py --case layer -n 12       # capa límite con 13 funciones base
+python src/flowGradient.py --case wave --t0 0 -T 6  # onda en [0, 6]
 ```
 
 Cada ejecución imprime por consola un **informe** (datos del problema, error en
 normas $L^2$ y $H^1$, valor del funcional $J$ del flujo gradiente vs. el del BVP
-de referencia) y guarda una figura **`flow_gradient.png`** con dos paneles: la
+de referencia) y guarda una figura **`figures/flow_gradient.png`** con dos paneles: la
 solución del método frente a la exacta, y la densidad del error $H^1$ a lo largo
 de $t$ —es el formato de las Figuras 3.1 y 3.2 de la memoria.
 
@@ -288,7 +286,7 @@ reproducen las figuras del TFG:
 
 El repositorio contiene dos tipos de obra, con licencias distintas:
 
-- **Código** (`*.py` y `data/`): licencia **MIT**. Consulta
+- **Código** (`src/` y `data/`): licencia **MIT**. Consulta
   [`LICENSE`](LICENSE).
 - **Memoria** (`docs/memoria_TFG.pdf`): licencia
   **[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)**.
