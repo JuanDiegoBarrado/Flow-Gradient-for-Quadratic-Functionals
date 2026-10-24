@@ -7,9 +7,11 @@
 [![NumPy](https://img.shields.io/badge/NumPy-2.4-013243.svg?style=flat-square&logo=numpy&logoColor=white)](https://numpy.org/)
 [![SciPy](https://img.shields.io/badge/SciPy-1.17-8CAAE6.svg?style=flat-square&logo=scipy&logoColor=white)](https://scipy.org/)
 [![Matplotlib](https://img.shields.io/badge/Matplotlib-3.10-11557c.svg?style=flat-square)](https://matplotlib.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat-square)](LICENSE)
+[![Memoria](https://img.shields.io/badge/Memoria-PDF-red.svg?style=flat-square)](docs/memoria_TFG.pdf)
+[![Código: MIT](https://img.shields.io/badge/Código-MIT-green.svg?style=flat-square)](LICENSE)
+[![Memoria: CC BY-NC-ND 4.0](https://img.shields.io/badge/Memoria-CC%20BY--NC--ND%204.0-lightgrey.svg?style=flat-square)](docs/LICENSE)
 
-📄 **Documento del TFG:** [JuanDiegoBarrado/Bachelor-s-Thesis-in-Mathematics](https://github.com/JuanDiegoBarrado/Bachelor-s-Thesis-in-Mathematics)
+📝 **Repositorio del documento del TFG:** [JuanDiegoBarrado/Bachelor-s-Thesis-in-Mathematics](https://github.com/JuanDiegoBarrado/Bachelor-s-Thesis-in-Mathematics)
 
 </div>
 
@@ -21,6 +23,51 @@ propuesto en la memoria del TFG y reproduce las **Figuras 3.1 y 3.2** de la
 Sección 3.2.2. Resuelve numéricamente un problema de contorno de tipo
 **Sturm–Liouville** minimizando su funcional de energía y compara la solución
 obtenida con la solución exacta y con un solver de contorno (BVP) de referencia.
+
+---
+
+## 📄 Memoria del TFG
+
+**Cálculo de variaciones y optimización** · *Calculus of Variations and Optimization*
+
+Trabajo de Fin de Grado del Doble Grado en Ingeniería Informática y Matemáticas
+(Facultad de Ciencias Matemáticas, Universidad Complutense de Madrid), curso
+2025–2026 · Fecha: 30 de junio de 2026 · Calificación: **Sobresaliente (9,7)**.
+
+👉 **[Leer la memoria (PDF)](docs/memoria_TFG.pdf)**
+
+La memoria construye las herramientas básicas del cálculo de variaciones: a
+partir de la variación de Gâteaux caracteriza los mínimos locales mediante
+condiciones necesarias y suficientes, y obtiene con la ecuación de
+Euler-Lagrange un método explícito para calcular los candidatos. Después aplica
+esa teoría a una familia de **funcionales cuadráticos**, a través de sus
+problemas de contorno variacionales. Plantea la formulación débil, demuestra la
+existencia y la unicidad de la solución con el **Teorema de Lax-Milgram** y
+prueba que las soluciones débiles son el mínimo global del funcional. Como
+aportación propia, propone resolver el problema con el **método del flujo
+gradiente**: su convergencia en dimensión finita se demuestra explícitamente y
+el **método de Galerkin** garantiza el paso al límite.
+
+Los experimentos numéricos (Figuras 3.1 y 3.2, generadas con este código)
+muestran que el método reproduce con precisión las soluciones suaves, con
+errores del orden de $10^{-4}$–$10^{-3}$ en norma $H^1$. En cambio, falla en
+problemas con capa límite, donde el error es de orden 1. La causa es la base de
+monomios: produce una matriz $A$ muy mal condicionada, cuyo coeficiente de
+rigidez crece exponencialmente con $n$. Por eso, la elección de la base, que es
+irrelevante en la teoría, resulta decisiva en la práctica.
+
+Para citar la memoria:
+
+```bibtex
+@thesis{barrado2026tfg,
+  author = {Barrado Daganzo, Juan Diego},
+  title  = {Cálculo de variaciones y optimización},
+  type   = {Trabajo de Fin de Grado},
+  school = {Universidad Complutense de Madrid},
+  year   = {2026},
+  url    = {https://github.com/JuanDiegoBarrado/Flow-Gradient-for-Quadratic-Functionals}
+}
+```
 
 ---
 
@@ -76,7 +123,11 @@ $$
 $$
 
 cuyos elementos se anulan en $t_0$ y en $T$ (cumplen las condiciones de contorno
-por construcción). Escribiendo $x \approx \sum_i X_i\,\varphi_i$, el funcional
+por construcción). El parámetro `-n` es el exponente máximo, así que se usan
+$n+1$ funciones base: con `-n 8` (el valor de las figuras de la memoria), el
+espacio lo forman los polinomios de grado $\le 10$ que se anulan en los extremos.
+La memoria escribe la base con exponente máximo $n-2$; las figuras corresponden
+a esta implementación. Escribiendo $x \approx \sum_i X_i\,\varphi_i$, el funcional
 restringido a $V_h$ es la forma cuadrática
 
 $$
@@ -86,7 +137,7 @@ $$
 con
 
 $$
-A_{ij} = \int_{t_0}^{T} \left(p(t) \varphi_i(t) \varphi_j(t) + q(t) \varphi_i(t) \varphi_j(t) \right) \ dt,
+A_{ij} = \int_{t_0}^{T} \left(p(t) \varphi_i'(t) \varphi_j'(t) + q(t) \varphi_i(t) \varphi_j(t) \right) \ dt,
 \qquad
 b_i = \int_{t_0}^{T} f(t) \varphi_i(t) \ dt.
 $$
@@ -136,6 +187,9 @@ natural de $H_0^1$).
 | `variationalCalculus.py` | Funciones de apoyo: ensamblado de $A$ (`compute_A`) y $b$ (`compute_B`), gradiente $\nabla J$ (`Delta_J`) y funcional $J$ (`J`). |
 | `data/*.json` | Un fichero por caso de prueba (ver más abajo). |
 | `requirements.txt` | Dependencias directas (numpy, scipy, matplotlib). |
+| `flow_gradient.png` | Figura de ejemplo; cada ejecución la sobrescribe. |
+| `docs/memoria_TFG.pdf` | Memoria del TFG. |
+| `docs/LICENSE` | Licencia de la memoria (CC BY-NC-ND 4.0). |
 
 ---
 
@@ -164,7 +218,7 @@ python flowGradient.py [--case CASO] [-n N] [--t0 T0] [-T T] [--time-limit TMAX]
 | Argumento | Descripción | Por defecto |
 |---|---|---|
 | `--case` | Caso a resolver (= nombre de un fichero en `data/`). | `poly` |
-| `-n` | Número de funciones base. | `8` |
+| `-n` | Exponente máximo de la base (se usan $n+1$ funciones). | `8` |
 | `--t0` | Extremo inicial $t_0$ del intervalo. | `0.0` |
 | `-T` | Extremo final $T$ del intervalo. | `3.0` |
 | `--time-limit` | Tiempo final $t_{\max}$ del flujo gradiente. | `200.0` |
@@ -173,7 +227,7 @@ Ejemplos:
 
 ```bash
 python flowGradient.py                          # caso por defecto
-python flowGradient.py --case layer -n 12       # capa límite con 12 funciones base
+python flowGradient.py --case layer -n 12       # capa límite con 13 funciones base
 python flowGradient.py --case wave --t0 0 -T 6  # onda en [0, 6]
 ```
 
@@ -230,10 +284,17 @@ reproducen las figuras del TFG:
 
 ---
 
-## 📜 Licencia
+## ⚖️ Licencia
 
-Distribuido bajo la licencia **MIT**. Consulta el fichero [`LICENSE`](LICENSE)
-para los detalles.
+El repositorio contiene dos tipos de obra, con licencias distintas:
+
+- **Código** (`*.py` y `data/`): licencia **MIT**. Consulta
+  [`LICENSE`](LICENSE).
+- **Memoria** (`docs/memoria_TFG.pdf`): licencia
+  **[CC BY-NC-ND 4.0](https://creativecommons.org/licenses/by-nc-nd/4.0/)**.
+  Puedes compartirla citando al autor, pero no con fines comerciales ni en
+  versiones modificadas. El escudo de la UCM queda excluido. Consulta
+  [`docs/LICENSE`](docs/LICENSE).
 
 <br>
 <div align="center">

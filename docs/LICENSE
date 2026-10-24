@@ -1,0 +1,33 @@
+Cálculo de variaciones y optimización
+Trabajo de Fin de Grado — Doble Grado en Ingeniería Informática y Matemáticas
+Universidad Complutense de Madrid
+
+Copyright (c) 2026 Juan Diego Barrado Daganzo
+
+La memoria del Trabajo de Fin de Grado contenida en este directorio
+(memoria_TFG.pdf) se distribuye bajo la licencia Creative Commons
+Reconocimiento-NoComercial-SinObraDerivada 4.0 Internacional (CC BY-NC-ND 4.0).
+
+Se permite copiar y redistribuir el documento en cualquier medio o formato
+siempre que se cumplan las siguientes condiciones:
+
+  - Reconocimiento (BY): debe citarse adecuadamente al autor, proporcionar un
+    enlace a la licencia e indicar si se han realizado cambios.
+  - No Comercial (NC): no se puede utilizar el documento con fines comerciales.
+  - Sin Obra Derivada (ND): si se remezcla, transforma o crea a partir del
+    documento, no se puede difundir el material modificado.
+
+Texto legal completo de la licencia:
+https://creativecommons.org/licenses/by-nc-nd/4.0/legalcode
+
+Excepciones
+-----------
+Esta licencia no se aplica al escudo de la Universidad Complutense de Madrid
+que aparece en la portada, cuyos derechos pertenecen a la Universidad, ni a
+cualquier figura o material reproducido de otros trabajos, que conservan los
+derechos de sus respectivos autores.
+
+Código fuente
+-------------
+Esta licencia cubre únicamente la memoria. El código fuente del repositorio se
+distribuye bajo una licencia distinta (MIT); consulta el fichero ../LICENSE.

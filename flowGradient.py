@@ -66,7 +66,7 @@ parser = argparse.ArgumentParser(
 parser.add_argument("--case", choices=available_cases(), default=DEFAULT_CASE,
                     help=f"Caso a resolver (por defecto: {DEFAULT_CASE}).")
 parser.add_argument("-n", type=int, default=DEFAULT_N,
-                    help=f"Número de funciones base (por defecto: {DEFAULT_N}).")
+                    help=f"Exponente máximo de la base; se usan n+1 funciones (por defecto: {DEFAULT_N}).")
 parser.add_argument("--t0", type=float, default=DEFAULT_T0,
                     help=f"Extremo inicial del intervalo (por defecto: {DEFAULT_T0}).")
 parser.add_argument("-T", type=float, default=DEFAULT_T,
